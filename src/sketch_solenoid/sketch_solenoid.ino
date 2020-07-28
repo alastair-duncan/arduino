@@ -33,7 +33,7 @@ void loop() {
   */
   
   // hall effect footpedal values
-  int pot_value = map(analogRead(ACCELERATOR_PEDAL), 180, 875, -1, QUANTIZATION_FACTOR);
+  int pot_value = map(analogRead(ACCELERATOR_PEDAL), 180, 875, -2, QUANTIZATION_FACTOR);
   
   // uncomment if you want to see the values of the potentiometer in the serial monitor
   // Serial.print("acc ");
@@ -46,20 +46,20 @@ void loop() {
      0 to 99 then write to the mosfet pin
   */
   
-  if (pot_value < 200 ) {
+  if (pot_value < 200) {
     //Serial.print( "About to write high");
     digitalWrite(MOSFET_PIN, HIGH);
     // this is to give the solenoid time to act
-    delay(12);
+    delay(15);
 
     digitalWrite(MOSFET_PIN, LOW);
     //this is the speed control here. it also determins the duty cycle for the solenoid
-    delay(pot_value + 12);
+    delay(pot_value + 25);
   } else
   {
-    // if its out of the 0 - 99 range ensure that the mosfet is low
+    // if its out of the 0 - 199 range ensure that the mosfet is low
     digitalWrite(MOSFET_PIN, LOW);
-    delay(pot_value + 15);
+    delay(pot_value + 20);
   }
 
 }
